@@ -9,7 +9,7 @@ public class Main {
     private static JButton upButton, rightButton, downButton, leftButton, yesButton, noButton, restartButton;
     private static String state;
     private static String scenario;
-    private static String startText = "You're standing at the SW entrance of Central Park, with Columbus Circle behind you. Which way do you want to go? (Click a DIRECTION)";
+    private static String startText = "It's the apocalypse, and you're currently stuck as the janitor in CostCo. People are bustling around the store, stacking on top of eachother. Will you stay and make bastion in the CostCo?";
 
     // *** STORY PROGRESSION SECTION ***
     static class DirectionListener implements ActionListener {
@@ -31,42 +31,41 @@ public class Main {
                 processWeddingChoice();
             } 
             else if (state.equals("s1_tavern") && scenario.equals("s1_noWedding")) {
-                processSheepsMeadow();
+           
             }
             // ADD MORE ELSE IF STATEMENTS FOR FURTHER STORY BRANCHES!!!
         }
 
         private void processStateStart() {
-            if (command.equals("Up")) {
-                storyArea.setText("You walk north to Tavern on the Green and see a lively wedding celebration. Do you want to crash it? (Click YES/NO)");
+            if (command.equals("Yes")) {
+                storyArea.setText("You make fort in TV aisle, and make walls of bright lights and reflections to throw off zombies. You see a TV already broken, do you search for a glass shard? (y/n)");
                 toggleDirectionButtons(false);
                 toggleYesNoButtons(true);
                 state = "s1_tavern";
                 scenario = "s1_none";
             }
+            else if (command.equals("No")) {
+                storyArea.setText("You walk out of the store instead of staying safe. You know whats gonna happen. The zombies dogpile you.");
+            }
         }
 
         private void processWeddingChoice() {
             if (command.equals("Yes")) {
-                storyArea.setText("You attempt to sneak into the wedding and promptly get arrested! Game over.");
+                storyArea.setText("You grab a glass shard and stay defended. All the zombies get very scared of your strength and run, you win!");
                 endGame();
             } else if (command.equals("No")) {
-                storyArea.setText("You pass the wedding and keep walking, reaching Sheep's Meadow. It's peaceful here. (Click a DIRECTION)");
+                storyArea.setText("You raise your fists against the zombies, and realize they're way too strong. You try to run but they happen to also be faster. :(");
                 toggleYesNoButtons(false);
                 toggleDirectionButtons(true);
                 scenario = "s1_noWedding";
             }
         }
 
-        private void processSheepsMeadow() {
-            if (command.equals("Up")) {
-                storyArea.setText("You walk further north and see Belvedere Castle in the distance. Do you want to go inside?");
-                toggleDirectionButtons(false);
-                toggleYesNoButtons(true);
-                state = "s2_castle";
-            }
+      
+
+     
         }
-    }
+    
 
     // *** GUI CUSTOMIZATION BELOW ***
     public static void main(String[] args) {
@@ -85,7 +84,7 @@ public class Main {
         imagePanel.setBackground(backgroundColor);
 
         JLabel imageLabel = new JLabel();
-        ImageIcon imageIcon = new ImageIcon("CentralPark.png");
+        ImageIcon imageIcon = new ImageIcon("janitorcloset.jpg");
         Image scaledImage = imageIcon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
         imageLabel.setIcon(new ImageIcon(scaledImage));
         imagePanel.add(imageLabel);
@@ -169,8 +168,8 @@ public class Main {
         storyArea.setText(startText);
         state = "start";
         scenario = "s0";
-        toggleDirectionButtons(true);
-        toggleYesNoButtons(false);
+        toggleDirectionButtons(false);
+        toggleYesNoButtons(true);
     }
 
     private static void toggleDirectionButtons(boolean enable) {
